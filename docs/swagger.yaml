@@ -1,4 +1,227 @@
+definitions:
+  handler.CreateTodoRequest:
+    properties:
+      description:
+        type: string
+      is_done:
+        type: boolean
+      name:
+        type: string
+    type: object
+  handler.CreateTodoResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.TodoResponse'
+      message:
+        type: string
+    type: object
+  handler.DeleteTodoResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.TodoResponse'
+      message:
+        type: string
+    type: object
+  handler.ErrorResponse:
+    properties:
+      errorCode:
+        type: integer
+      message:
+        type: string
+    type: object
+  handler.ListTodosResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/schemas.TodoResponse'
+        type: array
+      message:
+        type: string
+    type: object
+  handler.ShowTodoResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.TodoResponse'
+      message:
+        type: string
+    type: object
+  handler.UpdateTodoRequest:
+    properties:
+      description:
+        type: string
+      is_done:
+        type: boolean
+      name:
+        type: string
+    type: object
+  handler.UpdateTodoResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.TodoResponse'
+      message:
+        type: string
+    type: object
+  schemas.TodoResponse:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      is_done:
+        type: boolean
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
 info:
   contact: {}
-paths: {}
+paths:
+  /todo:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a new job todo
+      parameters:
+      - description: Todo identification
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.DeleteTodoResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Delete todo
+      tags:
+      - Todos
+    get:
+      consumes:
+      - application/json
+      description: Show a new job todo
+      parameters:
+      - description: Todo identification
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ShowTodoResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Show todo
+      tags:
+      - Todos
+    post:
+      consumes:
+      - application/json
+      description: Create a new job todo
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handler.CreateTodoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.CreateTodoResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Create an todo
+      tags:
+      - Todos
+    put:
+      consumes:
+      - application/json
+      description: Update a job todo
+      parameters:
+      - description: Todo identification
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: Todo data to update
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/handler.UpdateTodoRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.UpdateTodoResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Update todo
+      tags:
+      - Todos
+  /todos:
+    get:
+      consumes:
+      - application/json
+      description: List all job todos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ListTodosResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: List todos
+      tags:
+      - Todos
 swagger: "2.0"
