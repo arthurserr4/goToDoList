@@ -1,9 +1,13 @@
-package logger
+package config
 
 import (
 	"io"
 	"log"
 	"os"
+)
+
+var (
+	logger *Logger
 )
 
 type Logger struct {
@@ -25,6 +29,12 @@ func NewLogger(p string) *Logger {
 		err:     log.New(writer, "DEBUG: ", logger.Flags()),
 		writer:  writer,
 	}
+}
+
+func GetLogger(p string) *Logger {
+	// Initialize Logger
+	logger = NewLogger(p)
+	return logger
 }
 
 // Create Non-Formatted Logs
