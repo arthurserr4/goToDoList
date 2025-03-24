@@ -16,9 +16,9 @@ func initializeRoutes(router *gin.Engine) {
 	v1 := router.Group(basePath)
 	{
 		v1.POST("/todo", handler.CreateTodoHandler)
-		v1.GET("/todo", handler.CreateTodoHandler)
-		v1.PUT("/todo/:id", handler.UpdateTodoHandler)
-		v1.DELETE("/todo/:id", handler.DeleteTodoHandler)
+		v1.GET("/todo", handler.ShowTodoHandler)
+		v1.PUT("/todo", handler.UpdateTodoHandler)
+		v1.DELETE("/todo", handler.DeleteTodoHandler)
 		v1.GET("/todos", handler.ListTodosHandler)
 	}
 	// Initialize Swagger
