@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/arthurserr4/goToDoList/schemas"
+	"github.com/arthurserr4/goToDoList/internal/schemas"
 	"github.com/gin-gonic/gin"
 )
 

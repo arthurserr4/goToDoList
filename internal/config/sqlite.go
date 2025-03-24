@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/arthurserr4/goToDoList/schemas"
+	"github.com/arthurserr4/goToDoList/internal/schemas"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
